@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import pickle
 import random
 from statistics import mean
 
@@ -12,7 +13,6 @@ import pandas as pd
 from tqdm import tqdm
 
 from src.data.features import FeatureSpec, D_FRAME
-from src.data.compat_pickle import mediapipe_compat_load
 
 
 def _safe_getattr(obj, key, default=None):
@@ -25,7 +25,7 @@ def _safe_getattr(obj, key, default=None):
 
 def inspect_sample(pkl_path: Path):
     with open(pkl_path, "rb") as f:
-        frames = mediapipe_compat_load(f)
+        frames = pickle.load(f)
 
     if not isinstance(frames, list):
         raise ValueError(f"{pkl_path} expected list, got {type(frames)}")

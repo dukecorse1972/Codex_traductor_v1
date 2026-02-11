@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import pickle
 from typing import Optional
 
 import pandas as pd
@@ -8,7 +9,6 @@ import torch
 from torch.utils.data import Dataset
 
 from .features import sequence_to_fixed, FeatureSpec
-from .compat_pickle import mediapipe_compat_load
 
 
 class SWLLSEDataset(Dataset):
@@ -42,7 +42,7 @@ class SWLLSEDataset(Dataset):
             raise FileNotFoundError(f"Missing pkl file: {pkl_path}")
         try:
             with open(pkl_path, "rb") as f:
-                data = mediapipe_compat_load(f)
+                data = pickle.load(f)
         except Exception as exc:
             raise RuntimeError(f"Failed to load {pkl_path}: {exc}") from exc
 

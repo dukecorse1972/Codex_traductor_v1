@@ -101,14 +101,3 @@ pytest -q
 Incluye test de:
 - dimensión 291,
 - determinismo de orden de features.
-
-
-## Compatibilidad con PKL antiguos de MediaPipe
-
-Si al inspeccionar/entrenar aparece `ModuleNotFoundError: No module named "mediapipe.framework"`, este repo ya incluye un *unpickler* compatible que crea placeholders para rutas internas antiguas de MediaPipe y permite cargar los `.pkl` heredados.
-
-Esto aplica en:
-- `tools/inspect_dataset.py`
-- `src/data/dataset.py`
-
-Recomendación a futuro: serializar solo datos numéricos (arrays/dicts) para evitar dependencia de rutas internas de clases en `pickle`.
